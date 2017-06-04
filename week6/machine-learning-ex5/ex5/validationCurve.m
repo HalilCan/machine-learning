@@ -37,28 +37,31 @@ error_val = zeros(length(lambda_vec), 1);
 %           
 %       end
 %
-minError = 100;
-minLambda = 0;
-for i = (1:length(lambda_vec))
-  trainSetX = X(1:i,:);
-  trainSetY = y(1:i);
-  lambda = lambda_vec(i)
-  theta = trainLinearReg(trainSetX, trainSetY, lambda);
-  
-  [jTrainSet, gradTrainSet] = linearRegCostFunction(trainSetX, trainSetY, theta, 0);
-  [jCrossVal, gradCrossVal] = linearRegCostFunction(Xval, yval, theta, 0);
 
-% best lambda selection:  
-%  currentError = jCrossVal
-%  if (currentError < minError)
-%    minError = currentError;
-%    minLambda = lambda_vec(i)
-%  endif
-  
-  error_train(i) = jTrainSet;
-  error_val(i) = jCrossVal;
+%minError = 100;
+%minLambda = 0;
+m = size(X,1);
+for i = (1:m)
+  for j = (1:length(lambda_vec))
+    trainSetX = X(1:i,:);
+    trainSetY = y(1:i);
+    lambda = lambda_vec(j)
+    theta = trainLinearReg(trainSetX, trainSetY, lambda);
+    
+    [jTrainSet, gradTrainSet] = linearRegCostFunction(trainSetX, trainSetY, theta, 0);
+    [jCrossVal, gradCrossVal] = linearRegCostFunction(Xval, yval, theta, 0);
+
+  % best lambda selection:  
+  %  currentError = jCrossVal
+  %  if (currentError < minError)
+  %    minError = currentError;
+  %    minLambda = lambda_vec(i)
+  %  endif
+    
+    error_train(j) = jTrainSet;
+    error_val(j) = jCrossVal;
+  endfor
 endfor
-
 %disp("Best Lambda:");
 %disp(minLambda);
 %disp("Error with this regularization:");

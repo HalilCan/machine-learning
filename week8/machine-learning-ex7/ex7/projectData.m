@@ -19,10 +19,11 @@ Z = zeros(size(X, 1), K);
 %
 
 U_reduce = U(:,1:K);
-
 for i = 1:size(X,1)
-  Z(i) = X(i,:) * U_reduce;
+  Z(i,:) = X(i,:) * U_reduce;
 endfor
+
+
 
 % =============================================================
 

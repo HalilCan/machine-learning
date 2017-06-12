@@ -20,7 +20,7 @@ S = zeros(n);
 %       number of examples).
 %
 covariance = zeros(n,n);
-covariance = (1/m) ./ X' * X;
+covariance = (1/m) * X' * X;
 [U,S,V] = svd(covariance);
 
 
